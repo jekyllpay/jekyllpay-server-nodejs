@@ -1,0 +1,19 @@
+{
+  "name": "jekyllpay",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Yumin Gui <guiyumin@gmail.com>",
+  "license": "Apache-2",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-ejs": "^4.2.0",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
