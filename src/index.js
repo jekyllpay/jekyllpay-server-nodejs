@@ -1,9 +1,18 @@
 'use strict';
 
 const Koa = require('koa');
+const Router = require('koa-router');
+
 const app = new Koa();
-const view = require('koa-ejs');
+const router = new Router();
 const path = require('path');
+
+const view = require('koa-ejs');
+
+const serve = require("koa-static");
+const mount = require('koa-mount');
+app.use(mount("/assets", serve("./resources/assets")));
+
 const bodyParser = require('koa-bodyparser');
 app.use(bodyParser());
 
@@ -12,13 +21,14 @@ view(app, {
   layout: 'layout',
   viewExt: 'html',
   cache: false,
-  debug: true
+  debug: false
 });
 
 
-
-app.use(async function (ctx) {
+router.get('/', async (ctx, next) => {
   await ctx.render('home');
 });
+ 
+app.use(router.routes());
 
 app.listen(3000);
