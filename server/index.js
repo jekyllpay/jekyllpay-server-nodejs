@@ -11,7 +11,7 @@ const view = require('koa-ejs');
 
 const serve = require("koa-static");
 const mount = require('koa-mount');
-app.use(mount("/assets", serve("./resources/assets")));
+app.use(mount("/assets", serve(__dirname + '/resources/assets')));
 
 const bodyParser = require('koa-bodyparser');
 app.use(bodyParser());
