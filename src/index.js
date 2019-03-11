@@ -17,7 +17,7 @@ const view = require('koa-ejs');
 const serve = require("koa-static");
 const mount = require('koa-mount');
 
-let db = require('./libs/db');
+let db = require('./libs/database/db');
 
 
 
