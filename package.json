@@ -5,7 +5,8 @@
   "author": "Yumin Gui <guiyumin@gmail.com>",
   "license": "Apache-2",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "orm:dev": "node_modules/.bin/sequelize"
   },
   "dependencies": {
     "dotenv": "^6.2.0",
@@ -20,6 +21,7 @@
     "sequelize": "^4.43.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "sequelize-cli": "^5.4.0"
   }
 }

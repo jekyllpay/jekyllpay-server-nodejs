@@ -13,7 +13,7 @@ const sequelize = new Sequelize({
         dialectOptions: {
             collate: 'utf8_unicode_ci'
         },
-        timestamps: true
+        timestamps: false
     },
 
     pool: {
