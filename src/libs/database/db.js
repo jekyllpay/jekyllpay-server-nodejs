@@ -5,7 +5,6 @@ const sequelize = new Sequelize({
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: 'mysql',
-    operatorsAliases: false,//Using Sequelize without any aliases improves security. 
     define: {
         underscored: false,
         freezeTableName: true,
