@@ -10,7 +10,7 @@ const router = new Router();
 
 const Helmet = require('koa-helmet')
 
-let db = require('./libs/database/db');
+let db = require('./models/index');
 
 app.use(Helmet());
 

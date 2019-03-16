@@ -11,7 +11,7 @@ let attributes = {
   },
   firstname: Sequelize.STRING,
   lastname: Sequelize.STRING,
-  uid: {
+  uuid: {
     unique: true,
     allowNull: false,
     type: Sequelize.UUID,
@@ -28,7 +28,9 @@ let attributes = {
     allowNull: false
   },
   is_verified: {
-    type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   },
   created_at: {
     allowNull: false,

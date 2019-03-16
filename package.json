@@ -6,7 +6,7 @@
   "license": "Apache-2",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "orm:dev": "node_modules/.bin/sequelize"
+    "orm": "node_modules/.bin/sequelize"
   },
   "dependencies": {
     "dotenv": "^6.2.0",
