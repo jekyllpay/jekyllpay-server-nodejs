@@ -14,7 +14,10 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-
+// How to add a prefix to the  table name ?
+// sequelize.addHook('beforeDefine', (attributes, options) => {
+//   console.log('I don\'t know')
+// });
 sequelize
   .authenticate()
   .then(() => {

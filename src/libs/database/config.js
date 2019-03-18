@@ -9,7 +9,7 @@ module.exports = {
     "port": process.env.DB_PORT,
     "dialect": "mysql",
     "define": {
-      underscored: false,
+      underscored: true,
       freezeTableName: true,
       charset: 'utf8mb4',
       dialectOptions: {

@@ -9,8 +9,6 @@ let attributes = {
     primaryKey: true,
     type: Sequelize.INTEGER
   },
-  firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING,
   uuid: {
     unique: true,
     allowNull: false,
@@ -27,10 +25,24 @@ let attributes = {
     unique: true,
     allowNull: false
   },
+  password: {
+    type: Sequelize.STRING,
+    defaultValue: null
+  },
   is_verified: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false
+  },
+  firstname: Sequelize.STRING,
+  lastname: Sequelize.STRING,
+  backup_email: {
+    type: Sequelize.STRING,
+    defaultValue: null
+  },
+  cellphone: {
+    type: Sequelize.STRING,
+    defaultValue: null
   },
   created_at: {
     allowNull: false,
@@ -60,6 +72,6 @@ module.exports = {
     return queryInterface.createTable('jp_users', attributes, options);
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('jp_users');
   }
 };
