@@ -1,12 +1,10 @@
 'use strict';
 
 const Koa = require('koa');
-const Router = require('koa-router');
 
 require('dotenv').config();
 
 const app = new Koa();
-const router = new Router();
 
 const Helmet = require('koa-helmet')
 
@@ -18,14 +16,10 @@ const bodyParser = require('koa-bodyparser');
 app.use(bodyParser());
 
 // API routes
-// require('./routes')(router)
+const rootRouter = require('./routes/root');
 
-router.get('/', (ctx, next) => {
-  ctx.body = 'Hello world';
-});
-
-app.use(router.routes());
-app.use(router.allowedMethods());
+app.use(rootRouter.routes());
+app.use(rootRouter.allowedMethods());
 
 const port = process.env.PORT || 3000;
 app.listen(port);
