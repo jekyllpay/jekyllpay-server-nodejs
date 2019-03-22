@@ -17,9 +17,13 @@ app.use(bodyParser());
 
 // API routes
 const rootRouter = require('./routes/root');
+const gatewayRouter = require('./routes/gateway');
 
 app.use(rootRouter.routes());
 app.use(rootRouter.allowedMethods());
+
+app.use(gatewayRouter.routes());
+app.use(gatewayRouter.allowedMethods());
 
 const port = process.env.PORT || 3000;
 app.listen(port);
