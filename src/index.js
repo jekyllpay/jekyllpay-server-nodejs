@@ -1,15 +1,19 @@
 'use strict';
 
 const Koa = require('koa');
-
 require('dotenv').config();
-
 const app = new Koa();
 
-const Helmet = require('koa-helmet')
+const cors = require('@koa/cors');
+const Helmet = require('koa-helmet');
+
 
 let db = require('./models/index');
 
+app.use(cors({
+    origin: '*',
+    allowMethods: ['GET', 'POST']
+}));
 app.use(Helmet());
 
 const bodyParser = require('koa-bodyparser');
@@ -25,5 +29,5 @@ app.use(rootRouter.allowedMethods());
 app.use(gatewayRouter.routes());
 app.use(gatewayRouter.allowedMethods());
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 app.listen(port);
