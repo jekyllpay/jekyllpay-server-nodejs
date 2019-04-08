@@ -6,11 +6,14 @@
 ### Getting Started
 
 #### Installation
- - mkdir my-payjs-project && cd my-payjs-project
- - git clone git@github.com:jekyllpay/payjs-api.git .
- - yarn install
- - yarn orm db:migrate
- - yarn run dev
+
+```bash
+  mkdir my-payjs-project && cd my-payjs-project
+  git clone git@github.com:jekyllpay/payjs-api.git .
+  yarn install
+  yarn orm db:migrate
+  yarn run dev
+```
 
 #### API Reference
  - [Jekyll Pay Documentation](https://docs.jekyllpay.com)
