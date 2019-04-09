@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Yumin Gui <guiyumin@gmail.com>",
-  "license": "Apache-2",
+  "license": "Apache-2.0",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "orm": "node_modules/.bin/sequelize"
+    "orm": "node_modules/.bin/sequelize",
+    "init:gateway": "node src/bin/gateway.js"
   },
   "dependencies": {
     "@koa/cors": "2",
+    "chalk": "^2.4.2",
     "dotenv": "^6.2.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
@@ -19,7 +21,8 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "mysql2": "^1.6.5",
-    "sequelize": "^5.1.0"
+    "sequelize": "^5.1.0",
+    "stripe": "^6.28.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.10",

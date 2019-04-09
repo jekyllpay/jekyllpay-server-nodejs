@@ -1,7 +1,8 @@
 'use strict';
 
+
+
 const Koa = require('koa');
-require('dotenv').config();
 const app = new Koa();
 
 const cors = require('@koa/cors');
@@ -10,9 +11,10 @@ const Helmet = require('koa-helmet');
 
 let db = require('./models/index');
 
+const originWhiteList = ['http://localhost:8081'];
+
 app.use(cors({
-    origin: '*',
-    allowMethods: ['GET', 'POST']
+    origin: ctx => originWhiteList.includes(ctx.request.header.origin) ? ctx.request.header.origin : ctx.throw(400, 'Not Valid Origin')
 }));
 app.use(Helmet());
 
