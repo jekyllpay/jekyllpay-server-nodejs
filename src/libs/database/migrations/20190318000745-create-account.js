@@ -8,6 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      // user uuid
       uuid: {
         unique: true,
         allowNull: false,
@@ -34,19 +35,19 @@ module.exports = {
         allowNull: false
       },
       created_at: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        allowNull: true,
+        type: Sequelize.INTEGER(10).UNSIGNED,
+        defaultValue: null
       },
       updated_at: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        allowNull: true,
+        type: Sequelize.INTEGER(10).UNSIGNED,
+        defaultValue: null
       },
       deleted_at: {
         allowNull: true,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        type: Sequelize.INTEGER(10).UNSIGNED,
+        defaultValue: null
       }
     });
   },

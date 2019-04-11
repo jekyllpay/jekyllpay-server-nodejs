@@ -1,12 +1,25 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Account = sequelize.define('Account', {
-    gateway: DataTypes.STRING
+  let Account = sequelize.define('Account', {
+    uuid: DataTypes.UUID,
+    auid: DataTypes.UUID,
+    gateway: DataTypes.STRING,
+    account_id: DataTypes.STRING,
+    account_email: DataTypes.STRING,
+    created_at: DataTypes.INTEGER(10).UNSIGNED,
+    updated_at: DataTypes.INTEGER(10).UNSIGNED,
+    deleted_at: DataTypes.INTEGER(10).UNSIGNED
   }, {
-    underscored: true,
-  });
-  Account.associate = function(models) {
-    // associations can be defined here
+      tableName: "jp_accounts",
+    });
+
+  Account.associate = function (models) {
+    Account.belongsTo(models.User, {
+      constraints: false
+    });
+    Account.hasMany(models.Payment, {
+      constraints: false
+    });
   };
   return Account;
 };
