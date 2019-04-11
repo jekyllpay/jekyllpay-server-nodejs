@@ -20,7 +20,7 @@ let attributes = {
     unique: true,
     allowNull: false
   },
-  primary_email: {
+  email: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false
@@ -34,13 +34,13 @@ let attributes = {
     allowNull: false,
     defaultValue: false
   },
-  firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING,
+  first_name: Sequelize.STRING,
+  last_name: Sequelize.STRING,
   backup_email: {
     type: Sequelize.STRING,
     defaultValue: null
   },
-  cellphone: {
+  cell_phone: {
     type: Sequelize.STRING,
     defaultValue: null
   },

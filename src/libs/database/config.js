@@ -16,8 +16,9 @@ module.exports = {
         collate: 'utf8_unicode_ci'
       },
       timestamps: false
-    },
 
+    },
+    "logging": false,
     "pool": {
       max: 5,
       min: 0,
@@ -46,8 +47,9 @@ module.exports = {
         collate: 'utf8_unicode_ci'
       },
       timestamps: false
-    },
 
+    },
+    "logging": false,
     "pool": {
       max: 5,
       min: 0,

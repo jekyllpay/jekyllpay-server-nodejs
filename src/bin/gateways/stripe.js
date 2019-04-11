@@ -14,11 +14,11 @@ stripe.customers.list({ limit: 100 }, function (err, customers) {
         db.User.create({
             uuid: uuid4(),
             username: 'jp_' + customer.email.split('@')[0],
-            primary_email: customer.email,
+            email: customer.email,
             password: null,
             is_verified: true,
             created_at: customer.created
-        }).then(user => console.log(user.uuid))
+        }).then(user => console.log('User ' + user.email + ' added.'))
     }
 })
 
