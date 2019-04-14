@@ -6,7 +6,9 @@ const paypalRouter = require('./gateways/paypal-router');
 
 router.get('/', (ctx, next) => {
     ctx.status = 403;
-    ctx.body = null;
+    ctx.body = {
+        message: "403 Forbidden"
+    };
 });
 
 router.use('/stripe', stripeRouter.routes());

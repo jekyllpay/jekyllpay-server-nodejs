@@ -1,14 +1,10 @@
 const Router = require('koa-router')
 const router = new Router();
 
-router.get('/', (ctx, next) => {
+router.all('/', (ctx, next) => {
     ctx.body = {
-        code: '200',
-        status: 'success',
-        message: 'hello, world!',
-        data: null
+        message: 'Welcome to Jekyll Pay!'
     }
 });
-
 
 module.exports = router;
