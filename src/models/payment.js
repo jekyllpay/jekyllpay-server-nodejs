@@ -2,9 +2,13 @@
 module.exports = (sequelize, DataTypes) => {
   const Payment = sequelize.define('Payment', {
     puid: DataTypes.STRING
-  }, {});
-  Payment.associate = function(models) {
-    // associations can be defined here
+  }, {
+      tableName: "jp_payments",
+    });
+  Payment.associate = function (models) {
+    Payment.belongsTo(models.Account, {
+      foreignKey: "auid"
+    });
   };
   return Payment;
 };

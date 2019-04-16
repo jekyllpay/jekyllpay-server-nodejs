@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Account.associate = function (models) {
     Account.belongsTo(models.User, {
-      constraints: false
+      foreignKey: "uuid"
     });
     Account.hasMany(models.Payment, {
       constraints: false
