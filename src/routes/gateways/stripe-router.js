@@ -9,12 +9,12 @@ let db = require(path.resolve('src', 'models/index'));
 
 router.post('/charge', async (ctx, next) => {
 
-    let { stripe_token, first_name, last_name, email, amount, currency, phone } = ctx.request.body;
+    let { stripe_token_id, first_name, last_name, email, amount, currency, phone } = ctx.request.body;
 
     /** authenticate token itself */
     let token;
     try {
-        token = await stripe.tokens.retrieve(stripe_token.id);
+        token = await stripe.tokens.retrieve(stripe_token_id);
     } catch (error) {
         /** request should be recorded
          *  TODO: implement anti-spam methods
