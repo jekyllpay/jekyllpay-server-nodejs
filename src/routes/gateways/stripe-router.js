@@ -5,11 +5,11 @@ const router = new Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 let db = require(path.resolve('src', 'models/index'));
-
+let uuid4 = require('uuid/v4');
 
 router.post('/charge', async (ctx, next) => {
 
-    let { stripe_token_id, first_name, last_name, email, amount, currency, phone } = ctx.request.body;
+    let { stripe_token_id, first_name, last_name, email, pay_method, amount, currency, phone, message } = ctx.request.body;
 
     /** authenticate token itself */
     let token;
@@ -28,45 +28,72 @@ router.post('/charge', async (ctx, next) => {
      * if no, retrieve the customer's id from database and create a charge
      */
 
+    let customer;
     let user = await db.User.findOne({ where: { email: email } });
-    let account;
+    let account = await db.Account.findOne({ where: { uuid: user.uuid } });
+    let charge;
     let payment;
 
     if (user === null) {
+        /**  try catch ?
+         * since we have done "init" duiring setup, 
+         * we assume all cusomters have been retrieved and stored in our db
+         * Thus, we will be able to create a new customer with any email that is NOT in db
+         */
+        customer = await stripe.customers.create({
+            source: token.id,
+            email: email
+        });
+
         user = await db.User.create({
             uuid: uuid4(),
             username: 'jp_' + email.split('@')[0],
             email: email,
             password: null,
             is_verified: false,
-            created_at: parseInt(Date.now() / 1000) // 10-digit timestamp
+            created_at: parseInt(Date.now() / 1000, 10) // 10-digit timestamp
         });
 
-        account = await db.Account.create();
-        payment = await db.Payment.create();
-
-        ctx.status = 201;
-        ctx.body = {
-            code: 'JP_CHARGE_SUCCESS',
-            status: 'success',
-            message: 'Stripe Charge OK',
-            data: payment
-        }
-
+    }
+    if (account === null) {
+        account = await db.Account.create({
+            uuid: user.uuid,
+            auid: uuid4(),
+            gateway: 'stripe',
+            account_id: customer.id,
+            account_email: customer.email,
+            created_at: customer.created
+        });
     }
 
-    account = await db.Account.findOne({ where: { uuid: user.uuid } })
+    /** try to create a new charge */
+    try {
+        charge = await stripe.charges.create({
+            amount: amount,
+            currency: currency,
+            /** the following fields are optional */
+            customer: account.account_id, //customer id in Stripe (User's account's account_id ) 
+            description: 'Example charge',
+            statement_descriptor: "Jekyll Web Services"// up to 22 characters
+            // source:token.id // since we already have a customer id, source should the ID of a bank account or a card of such customer
+        });
+    } catch (error) {
+        ctx.throw(400, 'Error Code: JP_CHARGE_GATEWAY_ERROR');
+    }
 
-
-    /** create a new charge */
-    const { charge, error } = await stripe.charges.create({
+    payment = await db.Payment.create({
+        uuid: user.uuid,
+        auid: account.auid,
+        puid: uuid4(),
+        gateway: "stripe",
+        method: pay_method,
+        transaction_id: charge.id,
         amount: amount,
         currency: currency,
-        /** the following fields are optional */
-        customer: account.account_id, //customer id in Stripe (User's account's account_id ) 
-        description: 'Example charge',
-        statement_descriptor: "Jekyll Web Services", // up to 22 characters
-        source: token.id
+        min_unit: "cent",
+        status: "SUCCESS",
+        memo: message,
+        created_at: charge.created
     });
 
     ctx.status = 201;
@@ -74,7 +101,15 @@ router.post('/charge', async (ctx, next) => {
         code: 'JP_CHARGE_SUCCESS',
         status: 'success',
         message: 'Stripe Charge OK',
-        data: payment
+        data: {
+            method: payment.method,
+            transaction_id: payment.transaction_id,
+            amount: parseFloat(payment.amount / 100, 10),
+            currency: payment.currency,
+            status: payment.status,
+            memo: payment.memo,
+            created_at: payment.created_at
+        }
     }
 
 });

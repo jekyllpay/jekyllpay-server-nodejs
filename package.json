@@ -5,6 +5,7 @@
   "author": "Yumin Gui <guiyumin@gmail.com>",
   "license": "Apache-2.0",
   "scripts": {
+    "jp:node": "yarn run dev",
     "dev": "nodemon src/index.js",
     "orm": "node_modules/.bin/sequelize",
     "init:gateway": "node src/bin/gateway.js"

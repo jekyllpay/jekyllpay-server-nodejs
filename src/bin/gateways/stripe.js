@@ -18,10 +18,10 @@ stripe.customers.list({ limit: 100 }, function (err, customers) {
                 email: customer.email,
                 password: null,
                 is_verified: true,
-                created_at: parseInt(Date.now() / 1000) // 10-digit timestamp
+                created_at: parseInt(Date.now() / 1000, 10) // 10-digit timestamp
             })
             .then(user => {
-                console.log('User ' + user.email + ' added.');
+                console.log('User ' + user.email + ' added OK');
                 db.Account.create({
                     uuid: user.uuid,
                     auid: uuid4(),

@@ -1,5 +1,5 @@
 ### JekyllPay, the payment management system of choice
- - Pay.js, [payjs.org](https://payjs.org), the `Jekyll Pay` community edition
+ - the `Jekyll Pay` API server
  - Implemented in Node.js
  - Based on Koa2 framework
 
@@ -8,11 +8,12 @@
 #### Installation
 
 ```bash
-  mkdir my-payjs-project && cd my-payjs-project
-  git clone git@github.com:jekyllpay/payjs-api.git .
-  yarn install
-  yarn orm db:migrate
-  yarn run dev
+  - mkdir my-payjs-project && cd 
+  - my-payjs-project
+  - git clone git@github.com:jekyllpay/jekyllpay-server-nodejs.git .
+  - yarn install
+  - yarn orm db:migrate
+  - yarn jp:node
 ```
 
 #### API Reference
