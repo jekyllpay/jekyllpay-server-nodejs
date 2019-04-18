@@ -8,8 +8,7 @@
 #### Installation
 
 ```bash
-  - mkdir my-payjs-project && cd 
-  - my-payjs-project
+  - mkdir my-project && cd my-project
   - git clone git@github.com:jekyllpay/jekyllpay-server-nodejs.git .
   - yarn install
   - yarn orm db:migrate

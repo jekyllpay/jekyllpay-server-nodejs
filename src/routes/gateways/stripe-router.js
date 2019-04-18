@@ -30,7 +30,7 @@ router.post('/charge', async (ctx, next) => {
 
     let customer;
     let user = await db.User.findOne({ where: { email: email } });
-    let account = await db.Account.findOne({ where: { uuid: user.uuid } });
+    let account = user === null ? null : await db.Account.findOne({ where: { uuid: user.uuid } });
     let charge;
     let payment;
 
