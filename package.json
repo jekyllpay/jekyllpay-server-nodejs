@@ -1,6 +1,6 @@
 {
   "name": "jekyllpay-payjs-api",
-  "version": "1.0.0",
+  "version": "0.1.2",
   "main": "index.js",
   "author": "Yumin Gui <guiyumin@gmail.com>",
   "license": "Apache-2.0",
