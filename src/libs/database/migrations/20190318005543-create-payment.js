@@ -61,7 +61,8 @@ module.exports = {
         allowNull: false
       },
       memo: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: true
       },
       created_at: {
         allowNull: false,
