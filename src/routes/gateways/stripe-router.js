@@ -1,4 +1,3 @@
-require('dotenv').config();
 const path = require('path')
 const Router = require('koa-router')
 const router = new Router();
