@@ -53,7 +53,10 @@ router.post('/charge', async (ctx, next) => {
             email: email,
             password: null,
             is_verified: false,
-            created_at: parseInt(Date.now() / 1000, 10) // 10-digit timestamp
+            created_at: parseInt(Date.now() / 1000, 10), // 10-digit timestamp
+            first_name: first_name,
+            last_name: last_name,
+            cell_phone: phone
         });
 
     }
