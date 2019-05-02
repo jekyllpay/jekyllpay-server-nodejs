@@ -24,6 +24,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "mysql2": "^1.6.5",
+    "pem": "^1.14.2",
     "sequelize": "^5.3.0",
     "stripe": "^6.28.0",
     "uuid": "^3.3.2"
