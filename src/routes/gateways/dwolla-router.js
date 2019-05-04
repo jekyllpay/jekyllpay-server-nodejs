@@ -1,6 +1,5 @@
 const Router = require('koa-router')
 const router = new Router();
-const axios = require('axios');
 const dwolla = require('dwolla-v2');
 
 let access_token = null;
@@ -14,12 +13,16 @@ const client = new dwolla.Client({
     environment: process.env.NODE_ENV === 'production' ? 'production' : 'sandbox' // optional - defaults to production
 });
 
-router.get('/token-for-client', async (ctx, next) => {
+async function getAccessToken() {
     if (!access_token) {
         let resp = await client.auth.client();
         access_token = resp.access_token;
     }
-    ctx.body = access_token;
+    return access_token;
+}
+
+router.get('/', async (ctx, next) => {
+    ctx.body = "hello world"
 })
 
 module.exports = router;
