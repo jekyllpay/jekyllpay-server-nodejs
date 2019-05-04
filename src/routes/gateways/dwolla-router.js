@@ -1,36 +1,25 @@
 const Router = require('koa-router')
 const router = new Router();
 const axios = require('axios');
+const dwolla = require('dwolla-v2');
 
 let access_token = null;
 
 let client_id = process.env.DWOLLA_CLIENT_ID;
 let cliclient_secret = process.env.DWOLLA_CLIENT_SECRET;
 
-async function getAccessToken(id, secret) {
-    let url = process.env.DWOLLA_BASE_URL + '/token';
-    let base64_coded_auth_value = Buffer.from(`${id}:${secret}`).toString('base64');
-    let resp = null;
-    let err = null;
-    try {
-        resp = await axios.request({
-            url: url,
-            method: 'post',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                Authorization: "Basic " + base64_coded_auth_value
-            },
-            data: { "grant_type": "client_credentials" }
-        });
-    } catch (error) {
-        err = error.response;
+const client = new dwolla.Client({
+    key: client_id,
+    secret: cliclient_secret,
+    environment: process.env.NODE_ENV === 'production' ? 'production' : 'sandbox' // optional - defaults to production
+});
+
+router.get('/token-for-client', async (ctx, next) => {
+    if (!access_token) {
+        let resp = await client.auth.client();
+        access_token = resp.access_token;
     }
-
-    return { err, resp };
-}
-
-router.get('/token-for-client-app', async (ctx, next) => {
-
+    ctx.body = access_token;
 })
 
 module.exports = router;
