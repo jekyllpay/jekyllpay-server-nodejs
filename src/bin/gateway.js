@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 require('dotenv').config();
 
-let vars = process.argv.slice(2);
-let gateway = vars[0];
+let gateway = process.argv[2];
 
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);

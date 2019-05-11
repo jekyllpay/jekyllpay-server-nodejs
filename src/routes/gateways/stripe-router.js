@@ -6,6 +6,11 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 let db = require(path.resolve('src', 'models/index'));
 let uuid4 = require('uuid/v4');
 
+router.all('/', async (ctx, next) => {
+    ctx.status = 403;
+    ctx.body = "Not Authorized"
+})
+
 router.post('/charge', async (ctx, next) => {
 
     let { stripe_token_id, first_name, last_name, email, pay_method, amount, currency, phone, message } = ctx.request.body;

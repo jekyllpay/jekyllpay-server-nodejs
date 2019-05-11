@@ -1,39 +1,49 @@
 
 let db = require('../../models/index');
-
 let uuid4 = require('uuid/v4');
-
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-stripe.customers.list({ limit: 100 }, function (err, customers) {
-    if (err) {
-        console.error(err)
-        return;
-    }
+stripe.customers.list().then(async (customers) => {
+
     for (let customer of customers.data) {
-        db.User
-            .create({
+        //retrieve user from db
+        let user = await db.User.findOne({ where: { email: customer.email } });
+        //if not found, create a new user
+        if (!user) {
+            user = await db.User.create({
                 uuid: uuid4(),
                 username: 'jp_' + customer.email.split('@')[0],
                 email: customer.email,
                 password: null,
                 is_verified: true,
                 created_at: parseInt(Date.now() / 1000, 10) // 10-digit timestamp
+            });
+            console.log('User ' + user.email + ' added OK');
+        }
+
+        let account = await db.Account.findOne({ where: { account_email: user.email } });
+        if (!account) {
+            account = await db.Account.create({
+                uuid: user.uuid,
+                auid: uuid4(),
+                gateway: 'stripe',
+                account_id: customer.id,
+                account_email: customer.email,
+                created_at: customer.created
             })
-            .then(user => {
-                console.log('User ' + user.email + ' added OK');
-                db.Account.create({
-                    uuid: user.uuid,
-                    auid: uuid4(),
-                    gateway: 'stripe',
-                    account_id: customer.id,
-                    account_email: customer.email,
-                    created_at: customer.created
-                });
-            })
-            .catch(err => console.error('User ' + customer.email + ' added Failed'))
+            console.log('Account ' + account.account_email + ' added OK');
+        }
+
+        // payment ( it's "charges" in stripe) here
+
     }
-})
+}).then(err => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log('Init Stripe Good! ')
+    }
+});
 
 
 

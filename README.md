@@ -12,6 +12,7 @@
   - git clone git@github.com:jekyllpay/jekyllpay-server-nodejs.git .
   - yarn install
   - yarn orm db:migrate
+  - node src/bin/gateway <gateway name> // stripe, dwollay, paypal, etc
   - yarn jp:node
 ```
 
