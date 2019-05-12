@@ -9,13 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       uuid: {
-        unique: true,
         allowNull: false,
         type: Sequelize.UUID
       },
       //account unique id, varchar(36)
       auid: {
-        unique: true,
         allowNull: false,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
