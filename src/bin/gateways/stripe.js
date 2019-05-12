@@ -21,7 +21,10 @@ stripe.customers.list().then(async (customers) => {
             console.log('User ' + user.email + ' added OK');
         }
 
-        let account = await db.Account.findOne({ where: { account_email: user.email } });
+        let account = await db.Account.findOne({
+            where:
+                { account_email: user.email, gateway: 'stripe' }
+        });
         if (!account) {
             account = await db.Account.create({
                 uuid: user.uuid,

@@ -10,7 +10,6 @@ module.exports = {
       },
       // user uuid
       uuid: {
-        unique: true,
         allowNull: false,
         type: Sequelize.UUID
       },

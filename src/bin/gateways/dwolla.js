@@ -28,10 +28,28 @@ client.auth.client().then(appToken => {
                         is_verified: customer.status == 'verified' ? 'true' : false,
                         created_at: parseInt(Date.now() / 1000, 10) // 10-digit timestamp
                     });
+                    console.log('User ' + user.email + ' added OK');
                 }
 
-                console.log(user)
+                let account = await db.Account.findOne({
+                    where:
+                        { account_email: user.email, gateway: 'dwolla' }
+                });
+                if (!account) {
+                    account = await db.Account.create({
+                        uuid: user.uuid,
+                        auid: uuid4(),
+                        gateway: 'dwolla',
+                        account_id: customer.id,
+                        account_email: customer.email,
+                        created_at: parseInt(Date.parse(customer.created) / 1000)
+                    })
+                    console.log('Account ' + account.account_email + ' added OK');
+                }
+                // payment here
             }
+
+            console.log('Init Dwolla Good!')
         } else {
             console.error('Dwolla Error!')
         }
