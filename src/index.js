@@ -6,7 +6,6 @@ const app = new Koa();
 const cors = require('@koa/cors');
 const Helmet = require('koa-helmet');
 
-
 let db = require('./models/index');
 
 const originWhiteList = ['http://localhost:8081'];
