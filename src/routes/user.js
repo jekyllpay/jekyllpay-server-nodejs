@@ -1,6 +1,6 @@
 const Router = require('koa-router')
-const router = new Router();
-
+const router = new Router({prefix:'/user'});
+const path = require('path');
 let db = require(path.resolve('src', 'models/index'));
 let uuid4 = require('uuid/v4');
 let validator = require('validator');
@@ -8,7 +8,7 @@ let validator = require('validator');
 router.post('/signup', async (ctx, next) => {
     let { username, email, first_name, last_name, cell_phone } = ctx.request.body;
     ctx.assert(validator.isEmail(email), 400, 'Invalid Email Address');
-    let required_fields = !username || !email;
+    let required_fields = !!username && !!email;
     ctx.assert(required_fields, 400, 'Username and Email are required');
     let user;
     try{
