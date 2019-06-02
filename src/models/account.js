@@ -5,7 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     auid: DataTypes.UUID,
     gateway: DataTypes.STRING,
     account_id: DataTypes.STRING,
-    account_email: DataTypes.STRING,
+    account_email: {
+      type: DataTypes.STRING,
+      validate:{
+        isEmail: true
+      }
+    },
     created_at: DataTypes.INTEGER(10).UNSIGNED,
     updated_at: DataTypes.INTEGER(10).UNSIGNED,
     deleted_at: DataTypes.INTEGER(10).UNSIGNED

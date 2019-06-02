@@ -20,10 +20,14 @@ app.use(bodyParser());
 
 // API routes
 const rootRouter = require('./routes/root');
+const userRouter = require('./routes/user');
 const gatewayRouter = require('./routes/gateway');
 
 app.use(rootRouter.routes());
 app.use(rootRouter.allowedMethods());
+
+app.use(userRouter.routes());
+app.use(userRouter.allowedMethods());
 
 app.use(gatewayRouter.routes());
 app.use(gatewayRouter.allowedMethods());

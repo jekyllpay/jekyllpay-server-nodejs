@@ -7,7 +7,12 @@ module.exports = (sequelize, DataTypes) => {
     gateway: DataTypes.STRING,
     method: DataTypes.STRING,
     transaction_id: DataTypes.STRING,
-    amount: DataTypes.INTEGER,
+    amount: {
+      type: DataTypes.INTEGER,
+      validate: {
+        isInt: true
+      }
+    },
     min_unit: DataTypes.STRING,
     currency: DataTypes.STRING,
     status: DataTypes.STRING,
