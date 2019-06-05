@@ -5,7 +5,7 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../common/database/config.js')[env];
+const config = require(path.resolve('src', 'common/database/config.js'))[env];
 const db = {};
 
 let sequelize;
@@ -14,10 +14,7 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-// How to add a prefix to the  table name ?
-// sequelize.addHook('beforeDefine', (attributes, options) => {
-//   console.log('I don\'t know')
-// });
+
 sequelize
   .authenticate()
   .then(() => {
