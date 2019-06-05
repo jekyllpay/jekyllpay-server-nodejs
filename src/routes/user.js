@@ -57,6 +57,14 @@ router.post('/verify', async (ctx, next)=>{
         ctx.status = 200;
         ctx.body = { message: "Already Verified!", data: { user: { email:user.email } }};
     }else{
+
+        let email_key = "jp:send:" + user.email;
+        let sent = await redis.get(email_key);
+        if(!sent){
+            await redis.set(email_key, 1 , 'EX', 86400);
+        }else if ( sent >=5 ){
+            ctx.throw(429,'Exceed Rate Limit.');
+        }
         
         //send an email
         try {
@@ -73,17 +81,11 @@ router.post('/verify', async (ctx, next)=>{
             ctx.throw(500, 'Internal Server Error' + err);
         }
 
-        //send email first, and then, incr email_key
-        let email_key = "jp:send:" + user.email;
-        let sent = await redis.get(email_key);
-        if(!sent){
-            await redis.set(email_key, 1 , 'EX', 86400);
-        }else if ( sent < 5){
-            await redis.incr(email_key);
-        }else{
-            ctx.throw(429,'Exceed Rate Limit.');
-        }
-
+        /** incr only when total sent emails are less than 5
+         * and a new email has been sent successfully
+        */
+        await redis.incr(email_key);
+        
         ctx.status = 200;
         ctx.body = {  message: 'Verification Email Sent!' }
     }
