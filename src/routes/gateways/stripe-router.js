@@ -8,7 +8,10 @@ let uuid4 = require('uuid/v4');
 
 router.all('/', async (ctx, next) => {
     ctx.status = 403;
-    ctx.body = "Not Authorized"
+    ctx.body = {
+        message: 'Not Authorized!',
+        data: null
+    }
 })
 
 router.post('/charge', async (ctx, next) => {

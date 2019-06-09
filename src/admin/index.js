@@ -8,7 +8,7 @@ const cors = require('@koa/cors');
 const Helmet = require('koa-helmet');
 let db = require(path.resolve('src', 'models/index'));
 
-const originWhiteList = ['http://localhost:8081'];
+const originWhiteList = ["http://localhost:8081", "http://localhost:5500"];
 
 adminApp.use(cors({
     origin: ctx => originWhiteList.includes(ctx.request.header.origin) ? ctx.request.header.origin : ctx.throw(400, 'Not Valid Origin')
