@@ -20,8 +20,8 @@ router.all('/', (ctx, next) => {
     }
 });
 
-router.post('/purchase', async (ctx, next) => {
-
+router.post('/customer-presented-qrcode/purchase', async (ctx, next) => {
+    urls.purchaseUrl = "https://uaistest.unionpayintl.com/uais";
     let resp = await axios.request({
         url: urls.purchaseUrl,
         method: 'post',
