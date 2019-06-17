@@ -19,5 +19,14 @@
 #### API Reference
  - [Jekyll Pay Documentation](https://docs.jekyllpay.com)
 
+#### Supported Gateways
+ - [x] Stripe
+ - [ ] Braintree
+
+### Supported Payment Methods
+ - [x] Credit Card, Visa
+ - [x] Credit Card, MasterCard
+ - [ ] Credit Card, American Express
+
 ### LICENSE
  - [Apache 2.0](LICENSE)
